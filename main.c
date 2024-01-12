@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 		{
 			line_number = line_number + 1;
 			copy = strdup(line);
-			instruction = strtok(copy, "$ ");
+			instruction = strtok(copy, "$ \n");
 			if (!strcmp(instruction , "\n"))
 				continue;
 

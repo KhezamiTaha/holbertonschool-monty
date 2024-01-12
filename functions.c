@@ -39,6 +39,8 @@ void pall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	}
 }
 
+
+
 int isEmpty(stack_t **stack)
 {
 	if (stack == NULL)
