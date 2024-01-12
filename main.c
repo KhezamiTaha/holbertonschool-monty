@@ -8,13 +8,17 @@ int main(int argc, char *argv[])
 	size_t len = 0;
 	ssize_t i;
 	char *line = NULL;
-	stack_t **stack = NULL;
-	stack_t *no;
-	stack_t **empty = &no;
+	stack_t *stack = NULL;
+	stack_t *temp;
 
 	instruction_t array_op[] = {
 		{"push", push},
 		{"pall", pall},
+		{"pint", pint},
+		{"pop", pop},
+		{"swap", swap},
+		{"add", add},
+		{"nop", NULL},
 		{"nothing_here", NULL}};
 
 	if (argc != 2)
@@ -37,7 +41,7 @@ int main(int argc, char *argv[])
 			line_number = line_number + 1;
 			copy = strdup(line);
 			instruction = strtok(copy, "$ \n");
-			if (!strcmp(instruction , "\n"))
+			if (instruction == NULL)
 				continue;
 
 			for (j = 0; strcmp(array_op[j].opcode, "nothing_here"); j++)
@@ -57,16 +61,25 @@ int main(int argc, char *argv[])
 						else
 						{
 							if (stack == NULL)
-								stack = empty;
+							{
+								temp = malloc(sizeof(stack_t));
+								stack = temp;
+								stack->n = 100;
+							}
 
-							array_op[j].f(stack, push_number); /*case if push is correct */
+							array_op[j].f(&stack, push_number); /*case if push is correct */
 							line = NULL;
 							break;
 						}
 					}
+					else if (!strcmp(array_op[j].opcode, "nop"))
+					{
+						line = NULL;
+						break;
+					}
 					else
 					{
-						array_op[j].f(stack, line_number);
+						array_op[j].f(&stack, line_number);
 						line = NULL;
 						break;
 					}
@@ -80,7 +93,7 @@ int main(int argc, char *argv[])
 			}
 		}
 		else
-		break;
+			break;
 	}
 
 	fclose(Monty);
