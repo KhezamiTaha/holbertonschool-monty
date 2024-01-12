@@ -1,11 +1,11 @@
 
-Function_file =   6-hash_table_delete.c
-Main_file =  6-hash_table_deletemain.c
-NAME = 6-hash_table_delete
-Function_name =  void hash_table_delete(hash_table_t *ht);
+Function_file =   functions.c
+Main_file =  main.c
+NAME = monty
+Function_name = 
 
 
-Header = hash_tables.h
+Header = monty.h
 Directory = singly_linked_lists
 
 
@@ -26,8 +26,8 @@ ReadMe = README.md
 
 all: $(OBJ)
 	$(CC)  $(CFLAGS)  $(OBJ) -o  $(NAME)
-	betty    $(Main_file)  $(Header) $(Function_file)  
-	valgrind ./$(NAME) 
+	  
+	./$(NAME) /root/holbertonschool-monty/000.m
 	$(RM) -rf $(OBJ) $(NAME)
 	
 
