@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
 
 	while (1)
 	{
+		line = NULL;
 		i = getline(&line, &len, Monty);
 		if (i != -1)
 		{
@@ -57,7 +58,7 @@ int main(int argc, char *argv[])
 					{
 						token = strtok(NULL, "$ \n");
 						push_number = atoi(token);
-						perror("here");
+
 						free(instruction);
 						if (push_number == 0 && token[0] != '0')
 						{
@@ -74,10 +75,11 @@ int main(int argc, char *argv[])
 								temp = malloc(sizeof(stack_t));
 								stack = temp;
 								stack->n = 100;
+								array_op[j].f(&stack, push_number); /*case if push is correct */
+								free(temp);
 							}
-
-							array_op[j].f(&stack, push_number); /*case if push is correct */
-							free(temp);
+							else
+								array_op[j].f(&stack, push_number); /*case if push is correct */
 							break;
 						}
 					}
@@ -86,26 +88,33 @@ int main(int argc, char *argv[])
 						free(copy);
 						break;
 					}
+					else if (!strcmp(array_op[j].opcode, "pall"))
+					{
+						free(copy);
+						array_op[j].f(&stack, line_number);
+						break;
+					}
 					else
 					{
-						array_op[j].f(&stack, line_number);
 						free(copy);
+						if (isEmpty(&stack))
+							fclose(Monty);
+						array_op[j].f(&stack, line_number);
 						break;
 					}
 				}
 			}
-		}
-		else
-		{
-			if (strlen(instruction) != 0)
+			if (!strcmp(array_op[j].opcode, "nothing_here"))
 			{
 				fprintf(stderr, "L%u: unknown instruction %s\n", line_number, instruction);
 				free_stack(stack);
-				fclose(Monty);
-				exit(1);
+				exit(EXIT_FAILURE);
 			}
 		}
+		else
+			break;
 	}
+	free(line);
 	free_stack(stack);
 	fclose(Monty);
 	return (0);

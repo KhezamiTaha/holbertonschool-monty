@@ -39,7 +39,7 @@ void pall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 			printf("%d\n", temp->n);
 			temp = temp->next;
 		}
-	}
+	}	
 }
 
 void pint(stack_t **stack, unsigned int line_number)
@@ -47,7 +47,6 @@ void pint(stack_t **stack, unsigned int line_number)
 	if (isEmpty(stack))
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
-		fclose(Monty);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*stack)->n);
@@ -58,13 +57,14 @@ void pop(stack_t **stack, unsigned int line_number)
 	stack_t *temp;
 	if (isEmpty(stack))
 	{
+		
 		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
-		fclose(Monty);
 		exit(EXIT_FAILURE);
 	}
 	temp = *stack;
 	*stack = (*stack)->next;
-	(*stack)->prev = NULL;
+	if (*stack != NULL)
+		(*stack)->prev = NULL;
 	free(temp);
 
 }
@@ -76,17 +76,17 @@ void swap(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
 		free_stack(*stack);
-		fclose(Monty);
 		exit(EXIT_FAILURE);
 	}
+	
 	temp = *stack;
 	*stack = (*stack)->next;
 	(*stack)->prev = NULL;
 	temp->prev = *stack;
 	temp->next = (*stack)->next;
 	(*stack)->next = temp;
-	(*stack)->next->next->prev = temp;
-
+	if ((*stack)->next->next != NULL)
+		(*stack)->next->next->prev = temp;
 }
 
 void add(stack_t **stack, unsigned int line_number)
@@ -96,7 +96,6 @@ void add(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%u: can't add, stack too short\n", line_number);
 		free_stack(*stack);
-		fclose(Monty);
 		exit(EXIT_FAILURE);
 	}
 	temp = *stack;
