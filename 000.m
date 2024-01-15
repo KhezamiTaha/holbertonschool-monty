@@ -1,17 +1,5 @@
-push 0
-push 1
-push 2
-  push 3
-                   pall    
-push 4
-    push 5    
-      push    6        
+push-1024 + push 125f
 pall
-gfdgdf
-push fgvdsgsdf
-  fdgdfg
-  push 50 
-  swap 
-  pint 
-  pop 
-  
+push 125f
+pall
+
