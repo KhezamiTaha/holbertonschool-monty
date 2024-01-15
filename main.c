@@ -97,6 +97,14 @@ int main(int argc, char *argv[])
 						array_op[j].f(&stack, line_number);
 						break;
 					}
+					else if (!strcmp(array_op[j].opcode, "add")  || !strcmp(array_op[j].opcode, "swap"))
+					{
+						free(copy);
+						if(stack == NULL || stack->next == NULL)
+							fclose(Monty);
+						array_op[j].f(&stack, line_number);
+						break;
+					}
 					else
 					{
 						free(copy);
