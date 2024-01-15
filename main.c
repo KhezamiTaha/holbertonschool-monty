@@ -97,11 +97,12 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			if (!strcmp(array_op[j].opcode, "nothing_here"))
+			if (strlen(instruction) != 0)
 			{
 				fprintf(stderr, "L%u: unknown instruction %s\n", line_number, instruction);
 				free_stack(stack);
-				exit(EXIT_FAILURE);
+				fclose(Monty);
+				exit(1);
 			}
 		}
 	}
