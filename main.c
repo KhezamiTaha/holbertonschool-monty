@@ -58,10 +58,10 @@ int main(int argc, char *argv[])
 					{
 						token = strtok(NULL, "$ \n");
 						push_number = atoi(token);
-
-						free(instruction);
 						if (push_number == 0 && token[0] != '0')
 						{
+							free(instruction);
+							perror("free");
 							free_stack(stack);
 							fclose(Monty);
 							array_op[j].f(NULL, line_number); /*case if push is incorrect */
@@ -70,6 +70,7 @@ int main(int argc, char *argv[])
 						}
 						else
 						{
+							free(instruction);
 							if (stack == NULL)
 							{
 								temp = malloc(sizeof(stack_t));
