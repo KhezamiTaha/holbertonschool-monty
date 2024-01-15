@@ -1,5 +1,5 @@
 
-Function_file =   functions.c free_stack.c
+Function_file =   functions.c free_stack.c isdigit.c
 Main_file =  main.c
 NAME = monty
 Function_name = 

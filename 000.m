@@ -1,5 +1,7 @@
-push-1024 + push 125f
-pall
-push 125f
-pall
-
+push      -500gggg
+push 2
+   push 3   
+        
+     pall   
+    swap   
+    pall   
