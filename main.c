@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 							{
 								temp = malloc(sizeof(stack_t));
 								stack = temp;
-								stack->n = 100;
+								stack->n = 199;
 								array_op[j].f(&stack, push_number); /*case if push is correct */
 								free(temp);
 							}

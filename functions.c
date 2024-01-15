@@ -19,7 +19,7 @@ void push(stack_t **stack, unsigned int line_number)
 		}
 		newNode->n = line_number;
 		newNode->prev = NULL;
-		if ((*stack)->n == 100)
+		if ((*stack)->n == 199)
 			newNode->next = NULL;
 		else
 			newNode->next = *stack;
