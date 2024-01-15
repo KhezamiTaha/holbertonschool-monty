@@ -111,6 +111,8 @@ int main(int argc, char *argv[])
 			{
 				fprintf(stderr, "L%u: unknown instruction %s\n", line_number, instruction);
 				free_stack(stack);
+				free(copy);
+				fclose(Monty);
 				exit(EXIT_FAILURE);
 			}
 		}
