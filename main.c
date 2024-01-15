@@ -22,7 +22,6 @@ int main(int argc, char *argv[])
 		{"nop", NULL},
 		{"nothing_here", NULL}};
 
-	
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file");
@@ -61,7 +60,7 @@ int main(int argc, char *argv[])
 						perror("here");
 						free(instruction);
 						if (push_number == 0 && token[0] != '0')
-						{		
+						{
 							free_stack(stack);
 							fclose(Monty);
 							array_op[j].f(NULL, line_number); /*case if push is incorrect */
@@ -95,6 +94,9 @@ int main(int argc, char *argv[])
 					}
 				}
 			}
+		}
+		else
+		{
 			if (!strcmp(array_op[j].opcode, "nothing_here"))
 			{
 				fprintf(stderr, "L%u: unknown instruction %s\n", line_number, instruction);
@@ -102,8 +104,6 @@ int main(int argc, char *argv[])
 				exit(EXIT_FAILURE);
 			}
 		}
-		else
-			break;
 	}
 	free_stack(stack);
 	fclose(Monty);
