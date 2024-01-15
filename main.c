@@ -61,7 +61,6 @@ int main(int argc, char *argv[])
 						if (push_number == 0 && token[0] != '0')
 						{
 							free(instruction);
-							perror("free");
 							free_stack(stack);
 							fclose(Monty);
 							array_op[j].f(NULL, line_number); /*case if push is incorrect */
