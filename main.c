@@ -1,12 +1,13 @@
 #include "monty.h"
+FILE *Monty = NULL;
 int main(int argc, char *argv[])
 {
 	char *copy, *instruction, *token;
 	int j;
 	unsigned int line_number = 0, push_number;
-	FILE *Monty = fopen(argv[1], "r");
 	size_t len = 0;
 	ssize_t i;
+	FILE *Monty = fopen(argv[1], "r");
 	char *line = NULL;
 	stack_t *stack = NULL;
 	stack_t *temp;
@@ -21,6 +22,7 @@ int main(int argc, char *argv[])
 		{"nop", NULL},
 		{"nothing_here", NULL}};
 
+	
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file");
@@ -40,9 +42,13 @@ int main(int argc, char *argv[])
 		{
 			line_number = line_number + 1;
 			copy = strdup(line);
+			free(line);
 			instruction = strtok(copy, "$ \n");
 			if (instruction == NULL)
+			{
+				free(copy);
 				continue;
+			}
 
 			for (j = 0; strcmp(array_op[j].opcode, "nothing_here"); j++)
 			{
@@ -52,10 +58,14 @@ int main(int argc, char *argv[])
 					{
 						token = strtok(NULL, "$ \n");
 						push_number = atoi(token);
+						perror("here");
+						free(instruction);
 						if (push_number == 0 && token[0] != '0')
-						{
+						{		
+							free_stack(stack);
+							fclose(Monty);
 							array_op[j].f(NULL, line_number); /*case if push is incorrect */
-							line = NULL;
+
 							break;
 						}
 						else
@@ -68,19 +78,19 @@ int main(int argc, char *argv[])
 							}
 
 							array_op[j].f(&stack, push_number); /*case if push is correct */
-							line = NULL;
+							free(temp);
 							break;
 						}
 					}
 					else if (!strcmp(array_op[j].opcode, "nop"))
 					{
-						line = NULL;
+						free(copy);
 						break;
 					}
 					else
 					{
 						array_op[j].f(&stack, line_number);
-						line = NULL;
+						free(copy);
 						break;
 					}
 				}
@@ -88,14 +98,14 @@ int main(int argc, char *argv[])
 			if (!strcmp(array_op[j].opcode, "nothing_here"))
 			{
 				fprintf(stderr, "L%u: unknown instruction %s\n", line_number, instruction);
+				free_stack(stack);
 				exit(EXIT_FAILURE);
-				line = NULL;
 			}
 		}
 		else
 			break;
 	}
-
+	free_stack(stack);
 	fclose(Monty);
 	return (0);
 }

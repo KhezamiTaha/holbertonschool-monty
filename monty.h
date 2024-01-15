@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 
+extern FILE *Monty;
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -50,6 +51,7 @@ void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
 int isEmpty(stack_t **stack);
+void free_stack(stack_t *stack);
 
 
 

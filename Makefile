@@ -1,5 +1,5 @@
 
-Function_file =   functions.c
+Function_file =   functions.c free_stack.c
 Main_file =  main.c
 NAME = monty
 Function_name = 
@@ -27,7 +27,7 @@ ReadMe = README.md
 all: $(OBJ)
 	$(CC)  $(CFLAGS)  $(OBJ) -o  $(NAME)
 	  
-	./$(NAME) /root/holbertonschool-monty/000.m
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) /root/holbertonschool-monty/000.m
 	$(RM) -rf $(OBJ) $(NAME)
 	
 
