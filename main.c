@@ -56,10 +56,13 @@ int main(int argc, char *argv[])
 				{
 					if (!strcmp(array_op[j].opcode, "push"))
 					{
+						
 						token = strtok(NULL, "$ \n");
 						push_number = atoi(token);
+					
 						if (push_number == 0 && token[0] != '0')
 						{
+								
 							free(instruction);
 							free_stack(stack);
 							fclose(Monty);
@@ -69,7 +72,7 @@ int main(int argc, char *argv[])
 						}
 						else
 						{
-							free(instruction);
+							free(copy);
 							if (stack == NULL)
 							{
 								temp = malloc(sizeof(stack_t));

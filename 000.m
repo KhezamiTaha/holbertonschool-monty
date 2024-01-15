@@ -1,8 +1,6 @@
 push 1
-push fgdf
+push 2
 push 3
 pall
-add
+swap
 pall
-
-
